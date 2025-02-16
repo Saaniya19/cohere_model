@@ -6,6 +6,9 @@ load_dotenv()
 api_key = os.getenv("COHERE_API_KEY")
 co = cohere.Client(api_key)
 
+
+# generate is best for summarization, content generation, code generation, etc.
+# model generates the entire output internally and sends the output back in one go
 response = co.generate(
     model ='command-light',
     prompt = """"Summarize this dialogue:
