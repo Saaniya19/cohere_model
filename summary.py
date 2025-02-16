@@ -1,9 +1,13 @@
+import os
+from dotenv import load_dotenv
 import cohere
 
-co = cohere.client('HQMtTFs8RZbR1NFm9auFBa4SpnBNqe75ALdyd0eq')
+load_dotenv()
+api_key = os.getenv("COHERE_API_KEY")
+co = cohere.Client(api_key)
 
 response = co.generate(
-    model ='xlarge',
+    model ='command-light',
     prompt = """"Summarize this dialogue:
     Once upon a time there was an old mother pig who had three little pigs and not enough food to feed them. So when they were old enough, she sent them out into the world to seek their fortunes.
 
@@ -31,13 +35,13 @@ response = co.generate(
     The wolf continued down the lane and he passed by the second house made of sticks; and he saw the house, and he smelled the pigs inside, and his mouth began to water as he thought about the fine dinner they would make.
     --
     """,
-    max_tokens=20,
+    max_tokens=50,
     temperature=0.6,
     k=0,
     p=1,
     frequency_penalty=0,
     presence_penalty=0,
-    stop_sequence=["--"], #stop generating when this sequence is reached
+    stop_sequences=["--"], #stop generating when this sequence is reached
 )
 
-print('Prediction: {}'.format(response.generations[0].text))
+print('Summarization: {}'.format(response.generations[0].text))
